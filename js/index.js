@@ -1,39 +1,53 @@
-let entrada = prompt("Ingresar la sede de su institucion");
+let holidaysCalc = document.getElementsByClassName ("holydaysCalc")
+    holidaysCalc.addEventListener ("submit", calcExpenses)
 
-while (entrada != "ESC") {
-    switch (entrada) {
-        case "sede general pacheco":
-            alert("Bienvenido a la sede de gral. Pacheco")
-            break;
-    
-        case "sede belgrano":
-            alert("Bienvenido a la sede de belgrano")
-            break;
-    
-        case "sede martinez":
-            alert("Bienvenido a la sede martinez")
-            break;
-    
-        default:
-            alert("ingrese correctamente la sede de la institucion a la que pertenece")
-            break;
+function getValues(){
+    let destiny = document.getElementsByClassName ("destiny").value,
+        budget = document.getElementsByClassName ("budget").value,
+        accomodation = document.getElementsByClassName ("accomdation").value,
+        transport = document.getElementsByClassName ("transport").value,
+        food = document.getElementsByClassName ("food").value,
+        extra = document.getElementsByClassName ("extra").value;
+
+    return {destiny, budget, accomodation, transport, food, extra}
     }
-    
+
+
+function calcExpenses (e){
+    e.preventDefault();
+
+    const {destiny, budget, accomodation, transport, food, extra} = getValues();
+
+    let expenses = parseInt(accomodation) + parseInt(transport) + parseInt(food) + parseInt(extra)
+    let balance = budget - expenses
+
+    UI(destiny, budget, balance);
 }
 
-let saludo = "Bienvenido/a";
-let nombre = "Ingrese su nombre";
-let mensaje =(`${saludo} ${nombre} a nuestra plataforma institucional `);
+function UI (destiny, budget, balance) {
+    let result = document.getElementsByClassName ("result")
+    let dataPrint = document.createElement ("div")
 
-alert(mensaje);
+    dataPrint.innerHTML =`
+        <div class= "row">
+            <div class="col s4">
+                <h6>${destiny}</h6>
+            </div>
+            <div class="col s4">
+                <h6>${budget}</h6>
+            </div>
+            <div class="col s4">
+                <h6>${balance}</h6>
+            </div>
+        </div>
+    `
 
-let respuesta = prompt ("ciclo escolar")
-if (respuesta ("inicial") ) {
-    console.log("corresponde a ciclo inicial");
-} else if(respuesta ("primaria")) {
-    console.log("corresponde al ciclo de primaria");
-} else if (respuesta ("secundaria")){
-    console.log("corresponde al ciclo de secundaria");
-} else{
-    console.log("los datos ingresados son incorrectos");
+    result.appendChild(dataPrint)
+
+    reset();
+
+}
+
+function reset() {
+    document.getElementsByClassName ("holydaysCalc").reset()
 }
