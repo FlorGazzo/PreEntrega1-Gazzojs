@@ -1,39 +1,43 @@
 let entrada = prompt("¡Bienvenido/a a Calculá tu viaje! ¿Su destino será en el interior o exterior?");
+let holidaysCalc = document.getElementById("holidaysCalc");
+let flag;
 
-while (entrada != "ESC") {
+do{
     switch (entrada) {
         case "interior":
             alert("Bienvenido/a, a continuación podrá calcular su viaje en el interior")
+            alert ("Comenzemos")
+            flag = false;
             break;
-
         case "exterior":
             alert("Bienvenido/a, a continuación podrá calcular su viaje en el exterior")
+            alert ("Comenzemos")
+            flag = false;
             break;
-
         default:
             alert("ingrese la palabra INTERIOR, si desea realizar su viaje en el país o EXTERIOR si desea realizar su viaje en el exterior")
             break;
-    }
+    } 
+}while (flag) {
 
-    alert ("Comenzemos")
-
-let holidaysCalc = document.getElementsByClassName("holydaysCalc")
-    holidaysCalc.addEventListener("submit", calcExpenses)
+    holidaysCalc.addEventListener("submit", (e) => {
+        e.preventDefault();
+        calcExpenses()
+    } )
 
     function getValues() {
-        let destiny = document.getElementsByClassName("destiny").value;
-        let budget = document.getElementsByClassName("budget").value;
-        let accomodation = document.getElementsByClassName("accomdation").value;
-        let transport = document.getElementsByClassName("transport").value;
-        let food = document.getElementsByClassName("food").value;
-        let extra = document.getElementsByClassName("extra").value;
+        let destiny = document.getElementById("destiny").value;
+        let budget = document.getElementById("budget").value;
+        let accomodation = document.getElementById("accomodation").value;
+        let transport = document.getElementById("transport").value;
+        let food = document.getElementById("food").value;
+        let extra = document.getElementById("extra").value;
 
         return { destiny, budget, accomodation, transport, food, extra }
     }
 
 
-    function calcExpenses(e) {
-        e.preventDefault();
+    function calcExpenses() {
 
         const { destiny, budget, accomodation, transport, food, extra } = getValues();
 
@@ -44,7 +48,7 @@ let holidaysCalc = document.getElementsByClassName("holydaysCalc")
     }
 
     function UI(destiny, budget, balance) {
-        let result = document.getElementsByClassName("result")
+        let result = document.getElementById("result")
         let dataPrint = document.createElement("div")
 
         dataPrint.innerHTML = `
@@ -68,6 +72,6 @@ let holidaysCalc = document.getElementsByClassName("holydaysCalc")
     }
 
     function reset() {
-        document.getElementsByClassName("holydaysCalc").reset()
+        holidaysCalc.reset()
     }
 }
