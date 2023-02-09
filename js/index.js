@@ -5,34 +5,42 @@ holidaysCalc.addEventListener("submit", (e) => {
     calcExpenses()
 })
 
+let destiny = []
+    budget = []
+    accomodation = []
+    transport = []
+    food = []
+    extra = [];
+
+let elementBtnCalculate = document.querySelector(".btn");
+
+elementBtnCalculate.addEventListener("click", getValues)
+
 function getValues() {
-    let destiny = document.getElementById("destiny").value;
-    let budget = document.getElementById("budget").value;
-    let accomodation = document.getElementById("accomodation").value;
-    let transport = document.getElementById("transport").value;
-    let food = document.getElementById("food").value;
-    let extra = document.getElementById("extra").value;
 
-    return { destiny, budget, accomodation, transport, food, extra }
-}
+    let destiny = document.querySelector("destiny").value;
+    let budget = document.querySelector("budget").value;
+    let accomodation = document.querySelector("accomodation").value;
+    let transport = document.querySelector("transport").value;
+    let food = document.querySelector("food").value;
+    let extra = document.querySelector("extra").value;
 
-localStorage.setItem("destiny", JSON.stringify(destiny));
-const destinyInLocalStorage = JSON.parse(localStorage.getItem("destiny"))
+    destiny.push(destiny);
+    budget.push(budget);
+    accomodation.push(accomodation);
+    transport.push(transport);
+    food.push(food);
+    extra.push(extra);
 
-localStorage.setItem("budget", JSON.stringify(budget));
-const budgetInLocalStorage = JSON.parse(localStorage.getItem("budget"))
+    localStorage.setItem("destiny", JSON.stringify(destiny));
+    localStorage.setItem("budget", JSON.stringify(budget));
+    localStorage.setItem("accomodation", JSON.stringify(accomodation));
+    localStorage.setItem("transport", JSON.stringify(transport));
+    localStorage.setItem("food", JSON.stringify(food));
+    localStorage.setItem("extra", JSON.stringify(extra));
 
-localStorage.setItem("accomodation", JSON.stringify(accomodation));
-const accomodationInLocalStorage = JSON.parse(localStorage.getItem("accomodation"))
-
-localStorage.setItem("transport", JSON.stringify(transport));
-const transportInLocalStorage = JSON.parse(localStorage.getItem("accomodation"))
-
-localStorage.setItem("food", JSON.stringify(food));
-const foodInLocalStorage = JSON.parse(localStorage.getItem("food"))
-
-localStorage.setItem("extra", JSON.stringify(extra));
-const extraInLocalStorage = JSON.parse(localStorage.getItem("extra"))
+    }  
+//return { destiny, budget, accomodation, transport, food, extra }
 
 function calcExpenses() {
 
