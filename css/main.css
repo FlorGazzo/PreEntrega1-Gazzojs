@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; 
 }
 
 .navbar {
@@ -45,7 +45,7 @@ form input::placeholder {
     color:antiquewhite;
 }
 
-form .btn {
+form #btn {
     margin: 2em 1em;
     width: 60%;
     height: 40px;
@@ -57,7 +57,7 @@ form .btn {
     cursor: pointer;
 }
 
-#results{
+#dataUser{
     width: 85vw;
     display: flex;
     flex-direction: column;
