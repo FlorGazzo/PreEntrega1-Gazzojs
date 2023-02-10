@@ -21,22 +21,16 @@
         <h1>Organizá tu viaje</h1>
     </nav>
 
-    <div class="flex">
-        <div class="main">
-            <form id="holidaysCalc">
-                <input type="text" placeholder="Destiny" id="destiny" required />
-                <input type="number" placeholder="Budget" id="budget" required />
-                <input type="number" placeholder="Accomodation" id="accomodation" required />
-                <input type="number" placeholder="Transport " id="transport" required />
-                <input type="number" placeholder="Food" id="food" required />
-                <input type="number" placeholder="extra" id="extra" required />
-                <input type="submit" value="Calculate" id="btn" />
-            </form>
-        </div>
-        
-        <div id="dataUser">
-            <h2 class="user">DATOS INGRESADOS</h2>
-        </div>
+    <div class="main">
+        <form id="holidaysExpensesForm">
+            <input type="text" placeholder="Destiny Name" id="destinyName" required />
+            <input type="number" placeholder="Total Budget" id="totalBudget" required />
+            <input type="number" placeholder="Accomodation Expenses" id="accomodationExpenses" required />
+            <input type="number" placeholder="Transport Expenses" id="transportExpenses" required />
+            <input type="number" placeholder="Food Expenses" id="foodExpenses" required />
+            <input type="number" placeholder="extra Expenses" id="extraExpenses" required />
+            <input type="submit" value="Calculate Expenses" id="btn" />
+        </form>
     </div>
 
     <div class="container">
@@ -45,14 +39,14 @@
             <h5><i class="fas fa-wallet"></i></h5>
             <h5><i class="fas fa-money-bill-wave-alt"></i></h5>
         </div>
-        
+
         <div class="data">
             <div class="result" id="result"></div>
         </div>
     </div>
 
     <script src="./js/index.js"></script>
-    
+
 </body>
 
 </html>

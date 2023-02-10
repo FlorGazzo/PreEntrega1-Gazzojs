@@ -1,0 +1,27 @@
+[
+    {
+        "destinyName":"Bolivia",
+        "totalBudget":1000,
+        "totalExpenses":40
+    },
+    {
+        "destinyName":"Peru",
+        "totalBudget":5230,
+        "totalExpenses":172
+    },
+    {
+        "destinyName":"Argentina",
+        "totalBudget":1832,
+        "totalExpenses":59
+    },
+    {
+        "destinyName":"Colombia",
+        "totalBudget":8489,
+        "totalExpenses":2838
+    },
+    {
+        "destinyName":"Puerto Rico",
+        "totalBudget":90087,
+        "totalExpenses":7482
+    }
+]

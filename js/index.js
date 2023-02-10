@@ -1,103 +1,114 @@
-let holidaysCalc = document.getElementById("holidaysCalc");
+const DESTINY_NAME = "destinyName";
+const TOTAL_BUDGET = "totalBudget";
+const TOTAL_EXPENSES = "totalExpenses";
 
-holidaysCalc.addEventListener("submit", (e) => {
-    e.preventDefault();
-    calcExpenses()
-})
+let holidaysExpensesForm = document.getElementById("holidaysExpensesForm");
 
-function getValues() {
+fetch("./js/data.json")
+  .then((response) => response.json())
+  .then((holidaysexpenseslist) => {
+    console.log(holidaysexpenseslist);
 
-    let destiny = document.getElementById ("destiny").value;
-    let budget = document.getElementById("budget").value;
-    let accomodation = document.getElementById("accomodation").value;
-    let transport = document.getElementById("transport").value;
-    let food = document.getElementById("food").value;
-    let extra = document.getElementById("extra").value;
+    holidaysexpenseslist.forEach((holidayExpense) => {
+      console.log(holidayExpense);
 
-    return { destiny, budget, accomodation, transport, food, extra }
-}  
+      addResultToResultList(
+        holidayExpense.destinyName,
+        holidayExpense.totalBudget,
+        holidayExpense.totalExpenses
+      );
+    });
+  });
 
-localStorage.setItem("destiny", JSON.stringify(destiny));
-const destinyInLocalStorage = JSON.parse(localStorage.getItem("destiny"))
+holidaysExpensesForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-localStorage.setItem("budget", JSON.stringify(budget));
-const budgetInLocalStorage = JSON.parse(localStorage.getItem("budget"))
+  onSubmitButtonClicked();
+});
 
-localStorage.setItem("accomodation", JSON.stringify(accomodation));
-const accomodationInLocalStorage = JSON.parse(localStorage.getItem("accomodation"))
+function onSubmitButtonClicked() {
+  const inputValues = getValuesFromFormInputs();
 
-localStorage.setItem("transport", JSON.stringify(transport));
-const transportInLocalStorage = JSON.parse(localStorage.getItem("accomodation"))
+  saveResultsInLocalStorage(
+    inputValues.destinyName,
+    inputValues.totalBudget,
+    inputValues.totalExpenses
+  );
 
-localStorage.setItem("food", JSON.stringify(food));
-const foodInLocalStorage = JSON.parse(localStorage.getItem("food"))
+  const destinyName = localStorage.getItem(DESTINY_NAME);
+  const totalBudget = localStorage.getItem(TOTAL_BUDGET);
+  const totalExpenses = localStorage.getItem(TOTAL_EXPENSES);
 
-localStorage.setItem("extra", JSON.stringify(extra));
-const extraInLocalStorage = JSON.parse(localStorage.getItem("extra"))
+  addResultToResultList(destinyName, totalBudget, totalExpenses);
 
-function calcExpenses() {
-
-    const { destiny, budget, accomodation, transport, food, extra } = getValues();
-
-    let expenses = parseInt(accomodation) + parseInt(transport) + parseInt(food) + parseInt(extra)
-    let balance = budget - expenses
-
-    UI(destiny, budget, balance);
+  resetFormInputs();
 }
 
-function UI(destiny, budget, balance) {
-    let result = document.getElementById("result")
-    let dataPrint = document.createElement("div")
+function getValuesFromFormInputs() {
+  const totalExpenses = calculateExpenses();
 
-    dataPrint.innerHTML = `
+  const destinyName = document.getElementById("destinyName").value;
+
+  const totalBudget = document.getElementById("totalBudget").value;
+
+  return { totalExpenses, destinyName, totalBudget };
+}
+
+function calculateExpenses() {
+  const accomodationExpenses = document.getElementById(
+    "accomodationExpenses"
+  ).value;
+
+  const transportExpenses = document.getElementById("transportExpenses").value;
+
+  const foodExpenses = document.getElementById("foodExpenses").value;
+
+  const extraExpenses = document.getElementById("extraExpenses").value;
+
+  return (
+    parseInt(accomodationExpenses) +
+    parseInt(transportExpenses) +
+    parseInt(foodExpenses) +
+    parseInt(extraExpenses)
+  );
+}
+
+function saveResultsInLocalStorage(destinyName, totalBudget, totalExpenses) {
+  localStorage.setItem(DESTINY_NAME, destinyName);
+
+  console.log(localStorage.getItem(DESTINY_NAME));
+
+  localStorage.setItem(TOTAL_BUDGET, totalBudget);
+
+  console.log(localStorage.getItem(TOTAL_BUDGET));
+
+  localStorage.setItem(TOTAL_EXPENSES, totalExpenses);
+
+  console.log(localStorage.getItem(TOTAL_EXPENSES));
+}
+
+function addResultToResultList(destinyName, totalBudget, totalExpenses) {
+  let result = document.getElementById("result");
+
+  let dataPrint = document.createElement("div");
+
+  dataPrint.innerHTML = `
             <div class= "row">
                 <div class="col s4">
-                    <h6>${destiny}</h6>
+                    <h6>${destinyName}</h6>
                 </div>
                 <div class="col s4">
-                    <h6>${budget}</h6>
+                    <h6>${totalBudget}</h6>
                 </div>
                 <div class="col s4">
-                    <h6>${balance}</h6>
+                    <h6>${totalExpenses}</h6>
                 </div>
             </div>
-        `
+        `;
 
-    result.appendChild(dataPrint)
-
-    reset();
-
+  result.appendChild(dataPrint);
 }
 
-function reset() {
-    holidaysCalc.reset()
+function resetFormInputs() {
+  holidaysExpensesForm.reset();
 }
-
-function balanceColours() {
-
-    const { balance } = getValues()
-
-
-    if (balance < 0) {
-        document.getElementById('balance').classList.add('red')
-    }
-    else if (balance > 0) {
-        document.getElementById('balance').classList.add('green')
-    }
-}
-
-// let destiny = [];
-
-//fetch("./js/data.json")
-    //.then( response => response.json())
-    //.then( data => {
-        //destiny = data;
-        //loadProducts(destiny);
-    //})
-
-
-//const containerProducts = document.querySelector("#container-products");
-//const categoryButtons = document.querySelectorAll(".menu-button");
-//const titlePrincipal = document.querySelector("#title-principal");
-//let buttonAgregar;
-//const numberShop = document.querySelector("#numberShop");
